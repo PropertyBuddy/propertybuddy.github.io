@@ -91,6 +91,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="col-sm-2 col-md-3"></div>
   <a href="https://goo.gl/forms/SywPzbw4TqMzvjj23" class="col-xs-12 col-sm-8 col-md-6 btn btn-sm btn-success"><h4>Like what you see? Click here to register your details...</h4></a>
+  <div id="menu"></div>
 </div>
 
 <div class="container" id="app">
@@ -117,16 +118,19 @@ var popup = new mapboxgl.Popup({
     closeOnClick: false
 });
 
+var toggleableLayerIds = [
+  'Crime Data',
+  'Heritage - Local',
+  'Heritage - State',
+  'Master Plan',
+  'Proposed',
+  'Under Construction',
+  'River Flood'
+];
+
 map.on('mousemove', function(e) {
     var features = map.queryRenderedFeatures(e.point, {
-      layers: [
-        'Crime Data',
-        'Heritage - Local',
-        'Proposed',
-        'Master Plan',
-        'Under Construction',
-        'River Flood'
-      ]
+      layers: toggleableLayerIds
     });
     // Change the cursor style as a UI indicator.
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
@@ -145,7 +149,7 @@ map.on('mousemove', function(e) {
     } else if (feature.geometry.type == 'MultiPolygon') {
       coordinates = feature.geometry.coordinates[0][0][0];
     } else {
-      console.log('else', feature.geometry);
+      //console.log('else', feature.geometry);
     }
     // Populate the popup and set its coordinates
     // based on the feature found.
@@ -156,7 +160,6 @@ map.on('mousemove', function(e) {
     }
 });
 
-var toggleableLayerIds = [ 'crime (purple)', 'flood data', 'development', 'heritage (yellow)' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -182,8 +185,8 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         }
     };
 
-//    var layers = document.getElementById('menu');
-//    layers.appendChild(link);
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
 }
 
 
