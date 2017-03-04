@@ -22,12 +22,19 @@
           padding:0;
           background-color: #024872
         }
+        #app {
+          background-color: rgb(193, 193, 193);
+          padding: 0;
+        }
         #map img {
          max-width: none;
          min-width: 0px;
         }
         #map {
-          height: 400px;
+          height: 500px;
+        }
+        #moreinfo {
+          background-color: white;
         }
         #menu {
             background: #fff;
@@ -79,15 +86,18 @@
       max-width: 400px;
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
+
 </style>
 
-<div class="container">
+<div class="container" id="app">
     <img class="col-xs-12" src="thinbanner.png">
-     <div class="masthead">
+    <div clas="row">
+      <div class="col-sm-2 col-md-3"></div>
+      <a href="https://goo.gl/forms/SywPzbw4TqMzvjj23" class="col-xs-12 col-sm-8 col-md-6 btn btn-sm btn-success"><h4>Like what you see? Click here to register your details...</h4></a>
+    </div>
     <div class="col-xs-12">
       <div id="map"></div>
     </div>
-  </div>
     <img class="col-xs-12" src="domain.png">
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
