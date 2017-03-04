@@ -68,6 +68,12 @@
  </script>
 </head>
 <body>
+<style>
+  .mapboxgl-popup {
+      max-width: 400px;
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+</style>
 <div class="content">
   <img class="header" src="thinbanner.png">
   <nav id="menu"></nav>
@@ -81,6 +87,50 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/lmwright89/cizv2bzpp000o2smj7927zc2k',
     zoom: 14,
     center: [153.037,-27.493]
+});
+
+var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
+
+map.on('mousemove', function(e) {
+    var features = map.queryRenderedFeatures(e.point, {
+      layers: [
+        'Crime Data',
+        'Heritage - Local',
+        'Proposed',
+        'Master Plan',
+        'Under Construction',
+        'River Flood'
+      ]
+    });
+    // Change the cursor style as a UI indicator.
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+    if (!features.length) {
+      popup.remove();
+      return;
+    }
+
+    var feature = features[0];
+    var coordinates = null;
+    if (feature.geometry.type == 'Point') {
+      coordinates = feature.geometry.coordinates;
+    } else if (feature.geometry.type == 'Polygon') {
+      coordinates = feature.geometry.coordinates[0][0];
+    } else if (feature.geometry.type == 'MultiPolygon') {
+      coordinates = feature.geometry.coordinates[0][0][0];
+    } else {
+      console.log('else', feature.geometry);
+    }
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    if (coordinates) {
+      popup.setLngLat(coordinates)
+          .setHTML(feature.layer.id)
+          .addTo(map);
+    }
 });
 
 var toggleableLayerIds = [ 'crime (purple)', 'flood data', 'development', 'heritage (yellow)' ];
