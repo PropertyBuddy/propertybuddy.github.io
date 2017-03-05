@@ -95,9 +95,9 @@
 <div class="navbar navbar-fixed-top">
   <div class="col-sm-2 col-md-3"></div>
   <a href="https://goo.gl/forms/SywPzbw4TqMzvjj23" class="col-xs-12 col-sm-8 col-md-6 btn btn-sm btn-success"><h4>Like what you see? Click here to register your details...</h4></a>
-  <form action="https://hooks.zapier.com/hooks/catch/1200677/mafo8f/" method="POST">
+  <form action="/" method="POST">
     <script src="https://checkout.stripe.com/checkout.js"></script>
-    <!--<button id="stripeButton" class="btn btn-danger">Sign Me Up!</button>-->
+    <button id="stripeButton" class="btn btn-danger">Pay Now! $10.00</button>
   </form>
   <div id="menu"></div>
 </div>
@@ -114,14 +114,19 @@
 
 <script>
 var handler = StripeCheckout.configure({
-  key: 'pk_test_dX5xPGvBB6zbfySOJG8eALmp',
-  //key: 'pk_live_owwh0kLSGLTCF8i4D7aPFcsG',
+  //key: 'pk_test_dX5xPGvBB6zbfySOJG8eALmp',
+  key: 'pk_live_owwh0kLSGLTCF8i4D7aPFcsG',
   image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
   locale: 'auto',
   token: function(token) {
     // You can access the token ID with `token.id`.
     // Get the token ID to your server-side code for use.
     console.log(token);
+    $.ajax({
+      type: "POST",
+      url: 'https://hooks.zapier.com/hooks/catch/1200677/mafo8f/',
+      data: token
+    });
   }
 });
 
@@ -132,7 +137,7 @@ document.getElementById('stripeButton').addEventListener('click', function(e) {
     description: 'Suburb Report',
     zipCode: false,
     currency: 'aud',
-    amount: 2995
+    amount: 1000
   });
   e.preventDefault();
 });
