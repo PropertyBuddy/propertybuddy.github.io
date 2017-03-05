@@ -86,11 +86,19 @@
       max-width: 400px;
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
+  #stripeButton {
+    margin-left: 10px;
+    margin-top: 8px;
+  }
 </style>
 
 <div class="navbar navbar-fixed-top">
   <div class="col-sm-2 col-md-3"></div>
   <a href="https://goo.gl/forms/SywPzbw4TqMzvjj23" class="col-xs-12 col-sm-8 col-md-6 btn btn-sm btn-success"><h4>Like what you see? Click here to register your details...</h4></a>
+  <form action="https://hooks.zapier.com/hooks/catch/1200677/mafo8f/" method="POST">
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <button id="stripeButton" class="btn btn-danger">Sign Me Up!</button>
+  </form>
   <div id="menu"></div>
 </div>
 
@@ -103,6 +111,36 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+var handler = StripeCheckout.configure({
+  //key: 'pk_test_dX5xPGvBB6zbfySOJG8eALmp',
+  key: 'pk_live_owwh0kLSGLTCF8i4D7aPFcsG',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+  }
+});
+
+document.getElementById('stripeButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'Property Buddy',
+    description: 'Suburb Report',
+    zipCode: false,
+    currency: 'aud',
+    amount: 2995
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
 
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
