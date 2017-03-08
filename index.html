@@ -20,18 +20,35 @@
         body {
           margin:0;
           padding:0;
-          background-color: #024872
+          background-color: #087fcb;
         }
         #app {
-          background-color: rgb(193, 193, 193);
+          /*background-color: rgb(193, 193, 193);*/
+          background-color: #087fcb;
           padding: 0;
+          width: 100%;
         }
+
+        #app img {
+          width: auto;
+          max-height: 100px;
+          height: 10vh;
+        }
+
+        #app h1 {
+          color: #FFF;
+          font-size: 10px;
+          font-size: 2.7vw;
+          font-weight: normal;
+        }
+
         #map img {
          max-width: none;
          min-width: 0px;
         }
         #map {
-          height: 500px;
+          height: 600px;
+          height: 88vh;
         }
         #moreinfo {
           background-color: white;
@@ -94,7 +111,8 @@
 </div>
 
 <div class="container" id="app">
-    <img class="col-xs-12" src="thinbanner.png">
+    <img class="col-xs-12" src="logo.png">
+    <h1>Property Buddy - what you want to know before buying...</h1>
     <div class="col-xs-12">
       <div id="map"></div>
     </div>
