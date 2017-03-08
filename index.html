@@ -49,15 +49,6 @@
           font-weight: normal;
         }
 
-        @media (max-width: 550px) {
-          #app .subtitle {
-            display: none;
-          }
-          #app h1 {
-            font-size: 5vw;
-          }
-        }
-
         #map img {
          max-width: none;
          min-width: 0px;
@@ -210,6 +201,22 @@
           /*float: left;*/
           padding: 0px 5px;
           margin: 0;
+        }
+
+        textarea {
+          width: 300px;
+        }
+
+        @media (max-width: 550px) {
+          #app .subtitle {
+            display: none;
+          }
+          #app h1 {
+            font-size: 5vw;
+          }
+          textarea {
+            width: 150px;
+          }
         }
 
     </style>
