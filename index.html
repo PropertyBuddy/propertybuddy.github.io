@@ -16,7 +16,7 @@
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
     <style>
         body {
           margin:0;
@@ -24,6 +24,11 @@
           background-color: #087fcb;
           font-family: 'Roboto', sans-serif;
         }
+
+        h1, h2, p, div {
+          font-family: 'Roboto', sans-serif;
+        }
+
         #app {
           /*background-color: rgb(193, 193, 193);*/
           background-color: #087fcb;
@@ -52,9 +57,11 @@
           height: 600px;
           height: 88vh;
         }
+
         #moreinfo {
           background-color: white;
         }
+
         #menu {
             background: #fff;
             position: absolute;
@@ -62,9 +69,10 @@
             top: 10px;
             right: 10px;
             border-radius: 3px;
-            width: 120px;
+            width: 140px;
             border: 1px solid rgba(0,0,0,0.4);
-            font-family: 'Open Sans', sans-serif;
+            /*font-family: 'Open Sans', sans-serif;*/
+            margin-top: 10vh;
         }
 
         #menu a {
@@ -97,9 +105,15 @@
             background: #3074a4;
         }
 
+        #menu a:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
         #feedback {
-          /*float: right;*/
-          margin-left: 3vw;
+          float: right;
+          margin: 0 1vw;
         }
 
         .overlay {
@@ -150,6 +164,43 @@
           position: absolute;
           top: -15px;
           right: -15px;
+          cursor: pointer;
+        }
+
+        .navbar {
+          min-height: 0;
+        }
+
+        .face {
+          max-width: 30px;
+        }
+
+        #smile {
+          float: right;
+        }
+
+        #frown {
+          float: left;
+        }
+
+        .outlet {
+          width: 50%;
+          margin: 0;
+          display: inline-block;
+        }
+
+        .legend-key {
+          display: block;
+          float: left;
+          width: 15px;
+          height: 15px;
+        }
+
+        .legend-text {
+          display: block;
+          /*float: left;*/
+          padding: 0px 5px;
+          margin: 0;
         }
 
     </style>
@@ -171,7 +222,7 @@
 <div class="container" id="app">
     <img class="col-xs-12" src="logo.png">
     <h1>Property Buddy - what you want to know before buying...
-      <button type="button" class="btn btn-primary" id="feedback">Feedback!</button>
+      <button type="submit" class="btn btn-success" id="feedback">Feedback!</button>
     </h1>
     <div class="col-xs-12">
       <div id="map"></div>
@@ -179,7 +230,8 @@
 </div>
 
 <div class="overlay" id="overlay">
-  <div class="feedback_container">
+  <div class="feedback_container" id="feedback_container">
+    <p>Please give us your feedback...</p>
     <img src="cross.png" id="overlay_close">
     <form action="https://formspree.io/thepropertybuddy@gmail.com" method="POST">
         <div class="form-group">
@@ -196,14 +248,16 @@
         </div>
         <div class="form-group">
           <label for="feedback">Feedback</label>
-          <textarea name="Text1" cols="40" rows="5"></textarea>
+          <textarea name="feedback" cols="40" rows="5"></textarea>
         </div>
         <div class="form-group">
           <label for="pay">How much might you pay for this product?</label>
           <input type="range" name="pay" value="0" min="0" max="200" step="1" oninput="updatePay(value)">
-          <output for="pay" id="pay_value">$0 per month</output>
+          <img src="frown.png" id="frown" class="face">
+          <output for="pay" id="pay_value" class="outlet">$0 per month</output>
+          <img src="smile.png" id="smile" class="face">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" id="feedback_submit">Submit</button>
     </form>
   </div>
 </div>
@@ -221,10 +275,14 @@ $("#feedback").click(function(event) {
   $("#overlay").fadeToggle("fast");
 });
 
-$("#overlay_close").click(function(event){
+$("#overlay, #overlay_close").click(function(event){
   event.preventDefault();
   $("#overlay").fadeToggle("fast");
 });
+
+$("#feedback_container").click(function(event) {
+  event.stopPropagation();
+})
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
 var map = new mapboxgl.Map({
@@ -281,35 +339,55 @@ map.on('mousemove', function(e) {
     }
 });
 
+map.on('load', function(){
+  for (var i = 0; i < toggleableLayerIds.length; i++) {
+      var id = toggleableLayerIds[i];
 
-for (var i = 0; i < toggleableLayerIds.length; i++) {
-    var id = toggleableLayerIds[i];
+      var link = document.createElement('a');
+      link.href = '#';
+      link.className = 'active';
+      link.id = id;
+      var text = document.createElement('p');
+      text.textContent = id;
+      text.className = 'legend-text';
 
-    var link = document.createElement('a');
-    link.href = '#';
-    link.className = 'active';
-    link.textContent = id;
+      var color = map.getPaintProperty(id, 'fill-color');
+      if (!color) color = map.getPaintProperty(id, 'circle-color');
+      if (!color) color = map.getPaintProperty(id, 'line-color');
+      if (!color) color = map.getPaintProperty(id, 'fill-extrusion-color');
+      // link.style.backgroundColor = color;
+      var key = document.createElement('span');
+      key.className = 'legend-key';
+      key.style.backgroundColor = color;
 
-    link.onclick = function (e) {
-        var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
+      link.onclick = function (e) {
+          var clickedLayer = this.id;
+          console.log(clickedLayer);
+          e.preventDefault();
+          e.stopPropagation();
 
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        }
-    };
+          if (visibility === 'visible') {
+              map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+              this.className = '';
+          } else {
+              this.className = 'active';
+              map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+          }
+      };
 
-    var layers = document.getElementById('menu');
-    layers.appendChild(link);
-}
+      var layers = document.getElementById('menu');
+      link.appendChild(key);
+      link.appendChild(text );
+      layers.appendChild(link);
+  }
+});
 
+
+setTimeout(function() {
+  $("#overlay").fadeIn();
+}, 3000);
 
 </script>
 
