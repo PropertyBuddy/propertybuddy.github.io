@@ -367,14 +367,21 @@ map.on('load', function(){
       text.textContent = id;
       text.className = 'legend-text';
 
+      //Legend colours
       var color = map.getPaintProperty(id, 'fill-color');
       if (!color) color = map.getPaintProperty(id, 'circle-color');
       if (!color) color = map.getPaintProperty(id, 'line-color');
       if (!color) color = map.getPaintProperty(id, 'fill-extrusion-color');
-      // link.style.backgroundColor = color;
+      color = color.replace(/[\d\.]+\)$/g, '1)');
       var key = document.createElement('span');
       key.className = 'legend-key';
       key.style.backgroundColor = color;
+
+      //Legend Icon
+      //better way to test for circles?
+      if (map.getPaintProperty(id, 'circle-color')) {
+        key.style.borderRadius = "15px";
+      }
 
       link.onclick = function (e) {
           var clickedLayer = this.id;
