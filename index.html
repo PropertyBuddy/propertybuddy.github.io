@@ -16,11 +16,13 @@
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style>
         body {
           margin:0;
           padding:0;
           background-color: #087fcb;
+          font-family: 'Roboto', sans-serif;
         }
         #app {
           /*background-color: rgb(193, 193, 193);*/
@@ -94,6 +96,62 @@
         #menu a.active:hover {
             background: #3074a4;
         }
+
+        #feedback {
+          /*float: right;*/
+          margin-left: 3vw;
+        }
+
+        .overlay {
+          position:absolute;
+          top:0;
+          left:0;
+          right:0;
+          bottom:0;
+          background-color:rgba(0, 0, 0, 0.75);
+          z-index:9999;
+          color:white;
+          text-align: center;
+          display: none;
+        }
+
+        .overlay:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -0.25em;
+        }
+
+        .feedback_container {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 10px 15px;
+            position:relative;
+            font-weight:bold;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+        }
+
+        .feedback_container input {
+          display: block;
+          margin: 5px 0px;
+        }
+
+        .feedback_container label {
+          display: block;
+          text-align: left;
+          position: relative;
+        }
+
+        #overlay_close {
+          width: 30px;
+          position: absolute;
+          top: -15px;
+          right: -15px;
+        }
+
     </style>
  </script>
 </head>
@@ -112,15 +170,62 @@
 
 <div class="container" id="app">
     <img class="col-xs-12" src="logo.png">
-    <h1>Property Buddy - what you want to know before buying...</h1>
+    <h1>Property Buddy - what you want to know before buying...
+      <button type="button" class="btn btn-primary" id="feedback">Feedback!</button>
+    </h1>
     <div class="col-xs-12">
       <div id="map"></div>
     </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="feedback_container">
+    <img src="cross.png" id="overlay_close">
+    <form action="https://formspree.io/thepropertybuddy@gmail.com" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="_replyto" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="Phone Number">Phone</label>
+          <input type="text" name="phone" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="feedback">Feedback</label>
+          <textarea name="Text1" cols="40" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pay">How much might you pay for this product?</label>
+          <input type="range" name="pay" value="0" min="0" max="200" step="1" oninput="updatePay(value)">
+          <output for="pay" id="pay_value">$0 per month</output>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script>
+
+function updatePay(value) {
+	document.querySelector('#pay_value').value = "$" + value + " per month";
+}
+
+$("#feedback").click(function(event) {
+  event.preventDefault();
+  $("#overlay").fadeToggle("fast");
+});
+
+$("#overlay_close").click(function(event){
+  event.preventDefault();
+  $("#overlay").fadeToggle("fast");
+});
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
 var map = new mapboxgl.Map({
     container: 'map',
