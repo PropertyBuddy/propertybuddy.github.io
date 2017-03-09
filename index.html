@@ -441,9 +441,12 @@ map.on('load', function(){
   }
 });
 
-setTimeout(function() {
-  $("#overlay").fadeIn();
-}, 95000);
+if (window.location.href == "https://propertybuddy.github.io/") {
+  setTimeout(function() {
+    $("#overlay").fadeIn();
+  }, 3000);
+}
+
 
 </script>
 
