@@ -5,7 +5,7 @@
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -16,6 +16,8 @@
     </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css' type='text/css' />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
     <style>
         body {
@@ -67,7 +69,7 @@
             position: absolute;
             z-index: 1;
             top: 10px;
-            right: 10px;
+            left: 25px;
             border-radius: 3px;
             width: 140px;
             border: 1px solid rgba(0,0,0,0.4);
@@ -277,6 +279,24 @@
     </form>
   </div>
 </div>
+
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="dataModalLabel">Detailed Information</h4>
+      </div>
+      <div class="modal-body">
+        <pre id="pointData"></pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -306,7 +326,13 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/lmwright89/cj010vmhg007n2smm4gesq1mg',
     zoom: 14,
     center: [153.037,-27.493]
-});
+}).addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    }
+})).addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
@@ -323,6 +349,25 @@ var toggleableLayerIds = [
   'River Flood'
 ];
 
+map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: toggleableLayerIds
+  });
+
+  if (features.length) {
+    $('#pointData').html('');
+    features.forEach(function(f) {
+      $('#pointData').append(f.layer.id + '\n');
+      var regex = /(<([^>]+)>)/ig;
+      var json = JSON.stringify(f.properties, null, '  ');
+      json = json.replace(regex, "");
+
+      $('#pointData').append(json + '\n');
+    })
+    $('#dataModal').modal('show');
+  }
+});
+
 map.on('mousemove', function(e) {
     var features = map.queryRenderedFeatures(e.point, {
       layers: toggleableLayerIds
@@ -336,23 +381,13 @@ map.on('mousemove', function(e) {
     }
 
     var feature = features[0];
-    var coordinates = null;
-    if (feature.geometry.type == 'Point') {
-      coordinates = feature.geometry.coordinates;
-    } else if (feature.geometry.type == 'Polygon') {
-      coordinates = feature.geometry.coordinates[0][0];
-    } else if (feature.geometry.type == 'MultiPolygon') {
-      coordinates = feature.geometry.coordinates[0][0][0];
-    } else {
-      //console.log('else', feature.geometry);
-    }
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    if (coordinates) {
-      popup.setLngLat(coordinates)
-          .setHTML(feature.layer.id)
-          .addTo(map);
-    }
+
+  // e.lngLat
+  // e.point
+
+  popup.setLngLat(e.lngLat)
+      .setHTML(feature.layer.id)
+      .addTo(map);
 });
 
 map.on('load', function(){
@@ -385,7 +420,6 @@ map.on('load', function(){
 
       link.onclick = function (e) {
           var clickedLayer = this.id;
-          console.log(clickedLayer);
           e.preventDefault();
           e.stopPropagation();
 
@@ -407,10 +441,9 @@ map.on('load', function(){
   }
 });
 
-
 setTimeout(function() {
   $("#overlay").fadeIn();
-}, 3000);
+}, 95000);
 
 </script>
 
