@@ -321,6 +321,11 @@ $("#feedback_container").click(function(event) {
 })
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
+var geocode = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken
+});
+geocode.options.country = "AU";
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/lmwright89/cj010vmhg007n2smm4gesq1mg',
@@ -330,9 +335,7 @@ var map = new mapboxgl.Map({
     positionOptions: {
         enableHighAccuracy: true
     }
-})).addControl(new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-}));
+})).addControl(geocode);
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
