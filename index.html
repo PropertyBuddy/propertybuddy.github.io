@@ -211,6 +211,7 @@
 
         #menu #collapse {
           display: none;
+          padding: 7px;
         }
 
         #collapse img {
@@ -227,11 +228,18 @@
           textarea {
             width: 150px;
           }
+          #menu {
+            width: 120px;
+            left: 20px;
+          }
           #menu #collapse {
             display: block;
           }
           #menu .layer {
             display: none;
+          }
+          #map .mapboxgl-ctrl-geocoder {
+            min-width: 150px;
           }
         }
 
@@ -347,11 +355,11 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/lmwright89/cj010vmhg007n2smm4gesq1mg',
     zoom: 14,
     center: [153.037,-27.493]
-}).addControl(new mapboxgl.GeolocateControl({
+}).addControl(geocode).addControl(new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true
     }
-})).addControl(geocode);
+}));
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
