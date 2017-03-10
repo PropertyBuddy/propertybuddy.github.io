@@ -376,7 +376,7 @@ var toggleableLayerIds = [
   'River Flood'
 ];
 
-map.on('click touchend', function(e) {
+map.on('click', function(e) {
   var features = map.queryRenderedFeatures(e.point, {
     layers: toggleableLayerIds
   });
