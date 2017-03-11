@@ -322,9 +322,9 @@ $("#feedback_container").click(function(event) {
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
 var geocode = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken
+  accessToken: mapboxgl.accessToken,
+  country: 'AU'
 });
-geocode.options.country = "AU";
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -336,6 +336,7 @@ var map = new mapboxgl.Map({
         enableHighAccuracy: true
     }
 })).addControl(geocode);
+
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
@@ -447,7 +448,7 @@ map.on('load', function(){
 if (window.location.href == "https://propertybuddy.github.io/") {
   setTimeout(function() {
     $("#overlay").fadeIn();
-  }, 3000);
+  }, 13000);
 }
 
 
