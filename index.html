@@ -209,6 +209,15 @@
           width: 300px;
         }
 
+        #menu #collapse {
+          display: none;
+          padding: 7px;
+        }
+
+        #collapse img {
+          width: 25px;
+        }
+
         @media (max-width: 550px) {
           #app .subtitle {
             display: none;
@@ -218,6 +227,19 @@
           }
           textarea {
             width: 150px;
+          }
+          #menu {
+            width: 120px;
+            left: 20px;
+          }
+          #menu #collapse {
+            display: block;
+          }
+          #menu .layer {
+            display: none;
+          }
+          #map .mapboxgl-ctrl-geocoder {
+            min-width: 150px;
           }
         }
 
@@ -234,7 +256,9 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="col-sm-2 col-md-3"></div>
-  <div id="menu"></div>
+  <div id="menu">
+    <a href="#" id="collapse" class="active"><img src="plus.png" alt=""></a>
+  </div>
 </div>
 
 <div class="container" id="app">
@@ -331,11 +355,11 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/lmwright89/cj010vmhg007n2smm4gesq1mg',
     zoom: 14,
     center: [153.037,-27.493]
-}).addControl(new mapboxgl.GeolocateControl({
+}).addControl(geocode).addControl(new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true
     }
-})).addControl(geocode);
+}));
 
 
 var popup = new mapboxgl.Popup({
@@ -400,7 +424,7 @@ map.on('load', function(){
 
       var link = document.createElement('a');
       link.href = '#';
-      link.className = 'active';
+      link.className = 'active layer';
       link.id = id;
       var text = document.createElement('p');
       text.textContent = id;
@@ -431,9 +455,9 @@ map.on('load', function(){
 
           if (visibility === 'visible') {
               map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-              this.className = '';
+              this.className = 'layer';
           } else {
-              this.className = 'active';
+              this.className = 'active layer';
               map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
           }
       };
@@ -442,6 +466,16 @@ map.on('load', function(){
       link.appendChild(key);
       link.appendChild(text );
       layers.appendChild(link);
+  }
+});
+
+$("#collapse").click(function(){
+  if ($("#collapse img").attr("src") == "plus.png") {
+    $("#menu .layer").css("display", "block");
+    $("#collapse img").attr("src", "minus.png");
+  } else {
+    $("#menu .layer").css("display", "none");
+    $("#collapse img").attr("src", "plus.png");
   }
 });
 
