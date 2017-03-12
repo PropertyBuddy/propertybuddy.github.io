@@ -99,8 +99,8 @@
         }
 
         #menu a.active {
-            background-color: #3887be;
-            color: #ffffff;
+          background-color: #3887be;
+          color: #ffffff;
         }
 
         #menu a.active:hover {
@@ -345,37 +345,44 @@ $("#feedback_container").click(function(event) {
 })
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG13cmlnaHQ4OSIsImEiOiJjaXp2MmI5bm8wMHB2MnduaDdkcWV0OWV0In0.yVDv6j4s-4f11Lhu-EQw1w';
-var geocode = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken,
-  country: 'AU'
-});
-
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/lmwright89/cj010vmhg007n2smm4gesq1mg',
     zoom: 14,
     center: [153.037,-27.493]
-}).addControl(geocode).addControl(new mapboxgl.GeolocateControl({
+});
+
+map.addControl(new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  country: 'AU'
+}), 'top-right');
+
+map.addControl(new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true
     }
-}));
+}), 'top-right');
 
+map.addControl(new mapboxgl.NavigationControl({}), 'top-right');
+
+map.addControl(new mapboxgl.ScaleControl(), 'bottom-right');
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
 });
 
-var toggleableLayerIds = [
-  'Crime Data',
-  'Heritage - Local',
-  'Heritage - State',
-  'Master Plan',
-  'Proposed',
-  'Under Construction',
-  'River Flood'
+var toggleableLayers = [
+  ['Crime Data', 'visible'],
+  ['Zoning', 'none'],
+  ['Heritage - Local', 'visible'],
+  ['Heritage - State', 'visible'],
+  ['Master Plan', 'visible'],
+  ['Proposed', 'none'],
+  ['Under Construction', 'none'],
+  ['River Flood', 'none']
 ];
+var toggleableLayerIds = toggleableLayers.map(function(p) { return p[0]; });
 
 map.on('click', function(e) {
   var features = map.queryRenderedFeatures(e.point, {
@@ -410,31 +417,30 @@ map.on('mousemove', function(e) {
 
     var feature = features[0];
 
-  // e.lngLat
-  // e.point
-
   popup.setLngLat(e.lngLat)
       .setHTML(feature.layer.id)
       .addTo(map);
 });
 
 map.on('load', function(){
-  for (var i = 0; i < toggleableLayerIds.length; i++) {
-      var id = toggleableLayerIds[i];
+  for (var i = 0; i < toggleableLayers.length; i++) {
+      var layerId = toggleableLayers[i][0];
+      var defaultState = toggleableLayers[i][1];
 
       var link = document.createElement('a');
       link.href = '#';
       link.className = 'active layer';
-      link.id = id;
+      link.id = layerId;
+
       var text = document.createElement('p');
-      text.textContent = id;
+      text.textContent = layerId;
       text.className = 'legend-text';
 
       //Legend colours
-      var color = map.getPaintProperty(id, 'fill-color');
-      if (!color) color = map.getPaintProperty(id, 'circle-color');
-      if (!color) color = map.getPaintProperty(id, 'line-color');
-      if (!color) color = map.getPaintProperty(id, 'fill-extrusion-color');
+      var color = map.getPaintProperty(layerId, 'fill-color');
+      if (!color) color = map.getPaintProperty(layerId, 'circle-color');
+      if (!color) color = map.getPaintProperty(layerId, 'line-color');
+      if (!color) color = map.getPaintProperty(layerId, 'fill-extrusion-color');
       color = color.replace(/[\d\.]+\)$/g, '1)');
       var key = document.createElement('span');
       key.className = 'legend-key';
@@ -442,7 +448,7 @@ map.on('load', function(){
 
       //Legend Icon
       //better way to test for circles?
-      if (map.getPaintProperty(id, 'circle-color')) {
+      if (map.getPaintProperty(layerId, 'circle-color')) {
         key.style.borderRadius = "15px";
       }
 
@@ -451,23 +457,35 @@ map.on('load', function(){
           e.preventDefault();
           e.stopPropagation();
 
-          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-          if (visibility === 'visible') {
-              map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-              this.className = 'layer';
-          } else {
-              this.className = 'active layer';
-              map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-          }
+          setLayerVisibility(this, clickedLayer);
       };
+
+      setLayerVisibility(link, layerId, defaultState);
 
       var layers = document.getElementById('menu');
       link.appendChild(key);
-      link.appendChild(text );
+      link.appendChild(text);
       layers.appendChild(link);
   }
 });
+
+function setLayerVisibility(link, clickedLayer, defaultState) {
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+  if (defaultState === 'visible') {
+    visibility = 'none';
+  } else if (defaultState === 'none') {
+    visibility = 'visible'
+  }
+
+  if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+      link.className = 'layer';
+  } else {
+      link.className = 'active layer';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+  }
+}
 
 $("#collapse").click(function(){
   if ($("#collapse img").attr("src") == "plus.png") {
