@@ -1,0 +1,610 @@
+{
+  "displayFieldName": "ASSETID",
+  "fieldAliases": {
+    "OBJECTID": "OBJECTID",
+    "ASSETID": "ASSETID",
+    "SUBTYPECD": "SUBTYPECD",
+    "Shape_Length": "Shape_Length"
+  },
+  "geometryType": "esriGeometryPolyline",
+  "spatialReference": {
+    "wkid": 28356,
+    "latestWkid": 28356
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "ASSETID",
+      "type": "esriFieldTypeString",
+      "alias": "ASSETID",
+      "length": 15
+    },
+    {
+      "name": "SUBTYPECD",
+      "type": "esriFieldTypeString",
+      "alias": "SUBTYPECD",
+      "length": 20
+    },
+    {
+      "name": "Shape_Length",
+      "type": "esriFieldTypeDouble",
+      "alias": "Shape_Length"
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 8601,
+        "ASSETID": "LS167490",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 35.37897874568503
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502983.98139999993,
+              6961380.0723
+            ],
+            [
+              502958.5016999999,
+              6961355.5273
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8613,
+        "ASSETID": "LS167480",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 38.39388318481691
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502910.70880000014,
+              6961408.0466
+            ],
+            [
+              502932.7170000002,
+              6961382.7418
+            ],
+            [
+              502935.8998999996,
+              6961379.0725
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8623,
+        "ASSETID": "LS167488",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 53.04382950018596
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502953.8841000004,
+              6961349.2486
+            ],
+            [
+              502930.2597000003,
+              6961328.6128
+            ],
+            [
+              502922.1540999999,
+              6961321.5242
+            ],
+            [
+              502913.94120000023,
+              6961314.3457
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8704,
+        "ASSETID": "LS167491",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 31.24693973169052
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503007.51499999966,
+              6961400.6281
+            ],
+            [
+              502983.98139999993,
+              6961380.0723
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8731,
+        "ASSETID": "LS167486",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 16.520814926690104
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502863.3942,
+              6961270.1847
+            ],
+            [
+              502850.9512,
+              6961259.3169
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8804,
+        "ASSETID": "LS167482",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 44.30610903840222
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503019.4138000002,
+              6961406.377
+            ],
+            [
+              502986.0510999998,
+              6961377.2229
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8874,
+        "ASSETID": "LS167489",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 2.3997255387635206
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502958.5016999999,
+              6961355.5273
+            ],
+            [
+              502958.4687999999,
+              6961353.1278
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8896,
+        "ASSETID": "LS157389",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 60.738044606358166
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              504130.81340000033,
+              6961335.7813
+            ],
+            [
+              504139.98280000035,
+              6961290.7205
+            ],
+            [
+              504140.53529999964,
+              6961288.0111
+            ],
+            [
+              504142.9265999999,
+              6961276.2634
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8960,
+        "ASSETID": "LS167478",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 6.005636246747097
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502958.4687999999,
+              6961353.1278
+            ],
+            [
+              502953.8841000004,
+              6961349.2486
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8977,
+        "ASSETID": "LS165315",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 12.571832993520424
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503396.09219999984,
+              6961276.1135
+            ],
+            [
+              503395.7293999996,
+              6961281.9623
+            ],
+            [
+              503395.30879999977,
+              6961288.6609
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9006,
+        "ASSETID": "LS167479",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 34.38724625943903
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502935.8998999996,
+              6961379.0725
+            ],
+            [
+              502958.4687999999,
+              6961353.1278
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9008,
+        "ASSETID": "LS167497",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 8.991823631384266
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502992.00459999964,
+              6961370.4843
+            ],
+            [
+              502986.0510999998,
+              6961377.2229
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9031,
+        "ASSETID": "LS165313",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 34.66137445168436
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503392.5465000002,
+              6961365.3953
+            ],
+            [
+              503393.5937000001,
+              6961385.1613
+            ],
+            [
+              503394.37710000016,
+              6961400.0083
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9058,
+        "ASSETID": "LS166140",
+        "SUBTYPECD": "TRUNK MAIN",
+        "Shape_Length": 26.51098367402478
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503684.16899999976,
+              6961408.9564
+            ],
+            [
+              503684.8038999997,
+              6961391.0801
+            ],
+            [
+              503685.10080000013,
+              6961382.4618
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9092,
+        "ASSETID": "LS165332",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 54.59637242214628
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503738.1216000002,
+              6961292.1902
+            ],
+            [
+              503714.3158,
+              6961292.3002
+            ],
+            [
+              503683.52579999994,
+              6961292.4402
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9121,
+        "ASSETID": "LS167481",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 36.624542554388434
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502986.0510999998,
+              6961377.2229
+            ],
+            [
+              502958.4687999999,
+              6961353.1278
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9161,
+        "ASSETID": "LS165311",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 78.90477311322202
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503738.49260000046,
+              6961371.0941
+            ],
+            [
+              503738.2204999998,
+              6961312.1161
+            ],
+            [
+              503738.1216000002,
+              6961292.1902
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9166,
+        "ASSETID": "LS166127",
+        "SUBTYPECD": "TRUNK MAIN",
+        "Shape_Length": 59.40122520278002
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503683.52579999994,
+              6961292.4402
+            ],
+            [
+              503684.77919999976,
+              6961233.0522
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9192,
+        "ASSETID": "LS167487",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 67.12073586355935
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              502913.94120000023,
+              6961314.3457
+            ],
+            [
+              502889.3108999999,
+              6961292.8301
+            ],
+            [
+              502877.99760000035,
+              6961282.9421
+            ],
+            [
+              502863.3942,
+              6961270.1847
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9226,
+        "ASSETID": "LS157390",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 64.1100160271254
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              504173.2548000002,
+              6961383.8315
+            ],
+            [
+              504157.43929999974,
+              6961365.9252
+            ],
+            [
+              504130.81340000033,
+              6961335.7813
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9228,
+        "ASSETID": "LS166128",
+        "SUBTYPECD": "TRUNK MAIN",
+        "Shape_Length": 43.94769182310739
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503684.2927000001,
+              6961336.3812
+            ],
+            [
+              503683.52579999994,
+              6961292.4402
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9239,
+        "ASSETID": "LS165314",
+        "SUBTYPECD": "RETICULATION MAIN",
+        "Shape_Length": 76.78415114785686
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503395.30879999977,
+              6961288.6609
+            ],
+            [
+              503393.9813000001,
+              6961325.4434
+            ],
+            [
+              503393.7586000003,
+              6961331.7521
+            ],
+            [
+              503392.75260000024,
+              6961359.0666
+            ],
+            [
+              503392.5465000002,
+              6961365.3953
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9244,
+        "ASSETID": "LS166129",
+        "SUBTYPECD": "TRUNK MAIN",
+        "Shape_Length": 46.08768514439408
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              503685.10080000013,
+              6961382.4618
+            ],
+            [
+              503684.2927000001,
+              6961336.3812
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

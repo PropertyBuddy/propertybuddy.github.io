@@ -373,7 +373,7 @@ var popup = new mapboxgl.Popup({
 });
 
 var toggleableLayers = [
-  ['3d Buildings', 'none'],
+  ['3D Buildings', 'none'],
   ['Crime Data', 'visible'],
   ['Zoning', 'none'],
   ['Heritage - Local', 'visible'],
@@ -426,7 +426,7 @@ map.on('mousemove', function(e) {
 
 map.on('load', function(){
   map.addLayer({
-          'id': '3d Buildings',
+          'id': '3D Buildings',
           'source': 'composite',
           'source-layer': 'building',
           'filter': ['==', 'extrude', 'true'],
@@ -520,12 +520,13 @@ $("#collapse").click(function(){
   }
 });
 
+/*
 if (window.location.href == "https://propertybuddy.github.io/") {
   setTimeout(function() {
     $("#overlay").fadeIn();
   }, 13000);
 }
-
+*/
 
 </script>
 
