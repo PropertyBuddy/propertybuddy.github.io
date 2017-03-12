@@ -388,7 +388,11 @@ var toggleableLayers = [
 var toggleableLayerIds = toggleableLayers.map(function(p) { return p[0]; });
 
 map.on('click', function(e) {
-  var features = map.queryRenderedFeatures(e.point, {
+  showModal(e.point);
+});
+
+function showModal(point) {
+  var features = map.queryRenderedFeatures(point, {
     layers: toggleableLayerIds
   });
 
@@ -404,7 +408,7 @@ map.on('click', function(e) {
     })
     $('#dataModal').modal('show');
   }
-});
+}
 
 map.on('mousemove', function(e) {
     var features = map.queryRenderedFeatures(e.point, {
@@ -420,9 +424,11 @@ map.on('mousemove', function(e) {
 
     var feature = features[0];
 
+  var popupHtml = '<a href="javascript:showModal(e.point)">' + feature.layer.id + '</a>';
+
   popup.setLngLat(e.lngLat)
-      .setHTML(feature.layer.id)
-      .addTo(map);
+    .setHTML(popupHtml)
+    .addTo(map);
 });
 
 map.on('load', function(){
