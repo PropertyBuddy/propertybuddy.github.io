@@ -312,7 +312,7 @@
         <h4 class="modal-title" id="dataModalLabel">Detailed Information</h4>
       </div>
       <div class="modal-body">
-        <pre id="pointData"></pre>
+        <div id="pointData"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -397,16 +397,41 @@ function showModal(point) {
   });
 
   if (features.length) {
-    $('#pointData').html('');
-    features.forEach(function(f) {
-      $('#pointData').append(f.layer.id + '\n');
-      var regex = /(<([^>]+)>)/ig;
-      var json = JSON.stringify(f.properties, null, '  ');
-      json = json.replace(regex, "");
+      $('#pointData').html('');
+      features.forEach(function(f) {
+        if (f.layer.id === 'Master Plan') {
+          var html = "<h3>Master Plan</h3>";
+          var description = f.properties['Description'];
+          var regex = /(<([^>]+)>)/ig;
+          description = description.replace(regex, "\n");
 
-      $('#pointData').append(json + '\n');
-    })
-    $('#dataModal').modal('show');
+          var regex = /^([\s\w]+): (.*)/igm;
+          var match = regex.exec(description);
+          while (match != null) {
+            // matched text: match[0]
+            // match start: match.index
+            // capturing group n: match[n]
+            var key = match[1];
+            var value = match[2];
+            if (key && value) {
+              html += '<b>'+key+':</b> ' + value + '<br>';
+              //console.log(key + ' ==> ' + value);
+            }
+            match = regex.exec(description);
+          }
+          $('#pointData').append(html);
+        } else {
+          var html = "<pre>";
+          html += f.layer.id + '\n';
+          var json = JSON.stringify(f.properties, null, '  ');
+          var regex = /(<([^>]+)>)/ig;
+          json = json.replace(regex, "");
+
+          html += json + '</pre>\n';
+          $('#pointData').append(html);
+        }
+      })
+      $('#dataModal').modal('show');
   }
 }
 
