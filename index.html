@@ -373,6 +373,7 @@ var popup = new mapboxgl.Popup({
 });
 
 var toggleableLayers = [
+  ['3d Buildings', 'none'],
   ['Crime Data', 'visible'],
   ['Zoning', 'none'],
   ['Heritage - Local', 'visible'],
@@ -423,6 +424,27 @@ map.on('mousemove', function(e) {
 });
 
 map.on('load', function(){
+  map.addLayer({
+          'id': '3d Buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 15,
+          'paint': {
+              'fill-extrusion-color': '#aaa',
+              'fill-extrusion-height': {
+                  'type': 'identity',
+                  'property': 'height'
+              },
+              'fill-extrusion-base': {
+                  'type': 'identity',
+                  'property': 'min_height'
+              },
+              'fill-extrusion-opacity': .6
+          }
+      });
+
   for (var i = 0; i < toggleableLayers.length; i++) {
       var layerId = toggleableLayers[i][0];
       var defaultState = toggleableLayers[i][1];
