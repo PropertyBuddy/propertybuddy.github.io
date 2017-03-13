@@ -435,26 +435,33 @@ function showModal(point) {
   }
 }
 
-map.on('mousemove', function(e) {
-    var features = map.queryRenderedFeatures(e.point, {
-      layers: toggleableLayerIds
-    });
-    // Change the cursor style as a UI indicator.
-    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+//Wrapped in touch detection because the click event won't fire on touchscreen
+//devices when the mousemove event is in place, not that toucheven detection
+//isn't very reliable... http://stackoverflow.com/questions/7838680/detecting-that-the-browser-has-no-mouse-and-is-touch-only
+var hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+if (!hasTouch) {
+  map.on('mousemove', function(e) {
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: toggleableLayerIds
+      });
+      // Change the cursor style as a UI indicator.
+      map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-    if (!features.length) {
-      popup.remove();
-      return;
-    }
+      if (!features.length) {
+        popup.remove();
+        return;
+      }
 
-    var feature = features[0];
+      var feature = features[0];
 
-  var popupHtml = '<a href="javascript:showModal(e.point)">' + feature.layer.id + '</a>';
+    var popupHtml = '<a href="javascript:showModal(e.point)">' + feature.layer.id + '</a>';
 
-  popup.setLngLat(e.lngLat)
-    .setHTML(popupHtml)
-    .addTo(map);
-});
+    popup.setLngLat(e.lngLat)
+      .setHTML(popupHtml)
+      .addTo(map);
+  });
+}
+
 
 map.on('load', function(){
   map.addLayer({
