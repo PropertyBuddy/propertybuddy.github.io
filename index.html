@@ -373,16 +373,17 @@ var popup = new mapboxgl.Popup({
 });
 
 var toggleableLayers = [
-  ['3D Buildings', 'none'],
-  ['Sewerage', 'none'],
   ['Crime Data', 'visible'],
-  ['Zoning', 'none'],
   ['Heritage', 'visible'],
-  ['Public Transport', 'none'],
   ['Master Plan', 'visible'],
-  ['Proposed', 'none'],
+  ['Proposed Construction', 'none'],
+  ['Approved Construction', 'none'],
   ['Under Construction', 'none'],
   ['River Flood', 'none']
+  ['3D Buildings', 'none'],
+  ['Sewerage', 'none'],
+  ['Zoning', 'none'],
+  // ['Public Transport', 'none'],
 ];
 var toggleableLayerIds = toggleableLayers.map(function(p) { return p[0]; });
 
